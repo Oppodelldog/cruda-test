@@ -1,7 +1,5 @@
 ![CRUDA - e2e test](https://github.com/Oppodelldog/cruda/raw/master/public/logos/logo-h80.png "CRUDA e2e")
 
-#cruda-test
-
 E2E Tests for **[CRUDA](http://github.com/Oppodelldog/cruda)**
 
 These tests written in go utilize **[chromedp](http://github.com/chromedp/chromedp)** which integrates  
