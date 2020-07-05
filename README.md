@@ -1,4 +1,4 @@
-![CRUDA - e2e test](https://github.com/Oppodelldog/cruda/raw/master/public/logos/logo-h80.png "CRUDA e2e")
+![CRUDA - e2e test](logo-h80.png "CRUDA e2e")
 
 E2E Tests for **[CRUDA](http://github.com/Oppodelldog/cruda)**
 
