@@ -9,7 +9,7 @@ func OpenTestPage(url string) chromedp.Action {
 	return prefixError("OpenTestPage",
 		group.New("open CRUD Test Page on "+url,
 			OpenWebsite(url),
-			Navigate("/test"),
+			NavigateToTestPage(),
 			WaitForComponent(),
 		),
 	)
@@ -27,6 +27,18 @@ func OpenWebsite(url string) chromedp.Action {
 func NavigateToTestPage() chromedp.Action {
 	return prefixError("NavigateToTestPage",
 		Navigate("/test"),
+	)
+}
+
+func NavigateToAboutPage() chromedp.Action {
+	return prefixError("NavigateToAboutPage",
+		Navigate("/about"),
+	)
+}
+
+func NavigateToTestAndToolsPage() chromedp.Action {
+	return prefixError("NavigateToTestAndToolsPage",
+		Navigate("/test-and-tools"),
 	)
 }
 

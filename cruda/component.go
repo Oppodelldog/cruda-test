@@ -22,3 +22,12 @@ func WaitForJSXPageComponent() chromedp.Action {
 		),
 	)
 }
+
+func WaitForToolsContainer() chromedp.Action {
+	return prefixError("WaitForToolsContainer",
+		group.Simple(
+			group.Text("wait for tools container that holds the custom tools"),
+			chromedp.WaitVisible("*[data-testid='crud-and-tools-container']", chromedp.ByQuery),
+		),
+	)
+}

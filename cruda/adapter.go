@@ -14,8 +14,15 @@ type testItem struct {
 	Done bool   `json:"done"`
 }
 
-func InitAdapterFixtures() chromedp.Action {
-	return prefixError("InitAdapterFixtures", InitAdapterFixturesAction{
+func InitAdapterFixtures(adapterID string) chromedp.Action {
+	action := initAdapterFixtures()
+	action.testAdapterID = adapterID
+
+	return action
+}
+
+func initAdapterFixtures() InitAdapterFixturesAction {
+	return InitAdapterFixturesAction{
 		items: []testItem{
 			{
 				ID:   "1",
@@ -28,11 +35,12 @@ func InitAdapterFixtures() chromedp.Action {
 				Done: true,
 			},
 		},
-	})
+	}
 }
 
 type InitAdapterFixturesAction struct {
-	items []testItem
+	testAdapterID string
+	items         []testItem
 }
 
 func (i InitAdapterFixturesAction) Do(ctx context.Context) error {
@@ -43,7 +51,7 @@ func (i InitAdapterFixturesAction) Do(ctx context.Context) error {
 		return err
 	}
 
-	expression := "window.testAdapter.setItems(" + string(jsonItems) + ")"
+	expression := "window.testAdapter" + i.testAdapterID + ".setItems(" + string(jsonItems) + ")"
 
 	err = chromedp.Evaluate(expression, &res, chromedp.EvalAsValue).Do(ctx)
 	if err != nil {
@@ -57,35 +65,40 @@ func (i InitAdapterFixturesAction) Do(ctx context.Context) error {
 	return nil
 }
 
-func InitAdapterCreationError(errorValue string) chromedp.Action {
+func InitAdapterCreationError(adapterID string, errorValue string) chromedp.Action {
 	return prefixError("InitAdapterCreationError", InitAdapterErrorAction{
+		testAdapterID: adapterID,
 		operationName: "setCreateOperationError",
 		errorValue:    errorValue,
 	})
 }
 
-func InitAdapterUpdateError(errorValue string) chromedp.Action {
+func InitAdapterUpdateError(adapterID string, errorValue string) chromedp.Action {
 	return prefixError("InitAdapterUpdateError", InitAdapterErrorAction{
+		testAdapterID: adapterID,
 		operationName: "setUpdateOperationError",
 		errorValue:    errorValue,
 	})
 }
 
-func InitAdapterDeleteError(errorValue string) chromedp.Action {
+func InitAdapterDeleteError(adapterID string, errorValue string) chromedp.Action {
 	return prefixError("InitAdapterDeleteError", InitAdapterErrorAction{
+		testAdapterID: adapterID,
 		operationName: "setDeleteOperationError",
 		errorValue:    errorValue,
 	})
 }
 
-func InitAdapterLoadItemError(errorValue string) chromedp.Action {
+func InitAdapterLoadItemError(adapterID string, errorValue string) chromedp.Action {
 	return prefixError("InitAdapterLoadItemError", InitAdapterErrorAction{
+		testAdapterID: adapterID,
 		operationName: "setLoadItemOperationError",
 		errorValue:    errorValue,
 	})
 }
 
 type InitAdapterErrorAction struct {
+	testAdapterID string
 	operationName string
 	errorValue    string
 }
@@ -93,7 +106,7 @@ type InitAdapterErrorAction struct {
 func (i InitAdapterErrorAction) Do(ctx context.Context) error {
 	var res bool
 
-	expression := "window.testAdapter." + i.operationName + "('" + i.errorValue + "')"
+	expression := "window.testAdapter" + i.testAdapterID + "." + i.operationName + "('" + i.errorValue + "')"
 
 	err := chromedp.Evaluate(expression, &res, chromedp.EvalAsValue).Do(ctx)
 	if err != nil {

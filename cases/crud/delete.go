@@ -12,7 +12,7 @@ func Case05DeleteItem(ctx context.Context, url string) error {
 	return chromedp.Run(ctx,
 		group.New("open Test page with fixtures",
 			cruda.OpenWebsite(url),
-			cruda.InitAdapterFixtures(),
+			cruda.InitAdapterFixtures(testAdapterID),
 			cruda.NavigateToTestPage(),
 			cruda.WaitForComponent(),
 
@@ -48,12 +48,12 @@ func Case05DeleteItemServerError(ctx context.Context, url string) error {
 	return chromedp.Run(ctx,
 		group.New("open Test page with fixtures",
 			cruda.OpenWebsite(url),
-			cruda.InitAdapterFixtures(),
+			cruda.InitAdapterFixtures(testAdapterID),
 			cruda.NavigateToTestPage(),
 			cruda.WaitForComponent(),
 		),
 
-		cruda.InitAdapterDeleteError("Server cannot delete item"),
+		cruda.InitAdapterDeleteError(testAdapterID, "Server cannot delete item"),
 
 		group.New("select item 1 in list",
 			cruda.ListSelect(0),

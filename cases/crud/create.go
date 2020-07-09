@@ -101,7 +101,7 @@ func Case02CreateItemServerError(ctx context.Context, url string) error {
 		),
 
 		group.New("init data adapter to return an error on create",
-			cruda.InitAdapterCreationError("Server cannot create item"),
+			cruda.InitAdapterCreationError(testAdapterID, "Server cannot create item"),
 		),
 
 		group.New("add entry 3",

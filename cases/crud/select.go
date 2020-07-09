@@ -12,7 +12,7 @@ func Case03SelectItem(ctx context.Context, url string) error {
 	return chromedp.Run(ctx,
 		group.New("open Test page with fixtures",
 			cruda.OpenWebsite(url),
-			cruda.InitAdapterFixtures(),
+			cruda.InitAdapterFixtures(testAdapterID),
 			cruda.NavigateToTestPage(),
 			cruda.WaitForComponent(),
 		),
@@ -45,12 +45,12 @@ func Case03SelectItemServerError(ctx context.Context, url string) error {
 	return chromedp.Run(ctx,
 		group.New("open Test page with fixtures",
 			cruda.OpenWebsite(url),
-			cruda.InitAdapterFixtures(),
+			cruda.InitAdapterFixtures(testAdapterID),
 			cruda.NavigateToTestPage(),
 			cruda.WaitForComponent(),
 		),
 
-		cruda.InitAdapterLoadItemError("Server cannot load item"),
+		cruda.InitAdapterLoadItemError(testAdapterID, "Server cannot load item"),
 
 		group.New("select item 1 in list",
 			cruda.ListSelect(0),

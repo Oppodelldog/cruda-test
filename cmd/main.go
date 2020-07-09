@@ -5,6 +5,7 @@ import (
 
 	"github.com/Oppodelldog/cruda-test/cases/crud"
 	"github.com/Oppodelldog/cruda-test/cases/jsx"
+	"github.com/Oppodelldog/cruda-test/cases/tools"
 	"github.com/Oppodelldog/cruda-test/runner"
 )
 
@@ -32,6 +33,12 @@ func main() {
 			},
 			"JSX Page": runner.TestSuite{
 				"Case01CallJSXPage": jsx.Case01CallJSXPage,
+			},
+			"Tools": runner.TestSuite{
+				"Case01ToolsExtension_CreatedEvent":  tools.Case01ToolsExtensionReceiveCreateEvent,
+				"Case02ToolsExtension_SelectedEvent": tools.Case02ToolsExtensionReceiveSelectEvent,
+				"Case03ToolsExtension_UpdatedEvent":  tools.Case03ToolsExtensionReceiveUpdateEvent,
+				"Case04ToolsExtension_DeleteEvent":   tools.Case04ToolsExtensionReceiveDeleteEvent,
 			},
 		},
 	)

@@ -12,7 +12,7 @@ func Case01CallJSXPage(ctx context.Context, url string) error {
 	return chromedp.Run(ctx,
 		group.New("Open About CRUDA Page",
 			cruda.OpenWebsite(url),
-			cruda.Navigate("/about"),
+			cruda.NavigateToAboutPage(),
 			cruda.WaitForJSXPageComponent(),
 		),
 
