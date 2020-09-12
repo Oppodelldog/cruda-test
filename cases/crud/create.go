@@ -3,8 +3,8 @@ package crud
 import (
 	"context"
 
+	"github.com/Oppodelldog/chromedp-test/group"
 	"github.com/Oppodelldog/cruda-test/cruda"
-	"github.com/Oppodelldog/cruda-test/group"
 	"github.com/chromedp/chromedp"
 )
 

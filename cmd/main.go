@@ -3,10 +3,10 @@ package main
 import (
 	"flag"
 
+	"github.com/Oppodelldog/chromedp-test/runner"
 	"github.com/Oppodelldog/cruda-test/cases/crud"
 	"github.com/Oppodelldog/cruda-test/cases/jsx"
 	"github.com/Oppodelldog/cruda-test/cases/tools"
-	"github.com/Oppodelldog/cruda-test/runner"
 )
 
 const defaultURL = "http://172.17.0.2:3000"
@@ -40,6 +40,10 @@ func main() {
 				"Case03ToolsExtension_UpdatedEvent":  tools.Case03ToolsExtensionReceiveUpdateEvent,
 				"Case04ToolsExtension_DeleteEvent":   tools.Case04ToolsExtensionReceiveDeleteEvent,
 			},
+		},
+		runner.Options{
+			SortSuites: true,
+			SortTests:  true,
 		},
 	)
 }
