@@ -83,6 +83,7 @@ func fullScreenshot(quality int64, res *[]byte) chromedp.Tasks {
 			if err != nil {
 				return err
 			}
+
 			return nil
 		}),
 	}

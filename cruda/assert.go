@@ -25,6 +25,7 @@ func (e EqualsAction) Do(ctx context.Context) error {
 	err := chromedp.Evaluate(e.Expression, &res, chromedp.EvalAsValue).Do(ctx)
 	if err != nil {
 		fmt.Printf("evaluation error: %v", err)
+
 		return err
 	}
 
