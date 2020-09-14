@@ -3,60 +3,59 @@ package crud
 import (
 	"context"
 
-	"github.com/Oppodelldog/chromedp-test/group"
-	"github.com/Oppodelldog/cruda-test/cruda"
+	. "github.com/Oppodelldog/cruda-test/cruda" //nolint:golint
 	"github.com/chromedp/chromedp"
 )
 
 func Case04UpdateItem(ctx context.Context, url string) error {
 	return chromedp.Run(ctx,
-		group.New("open Test page with fixtures",
-			cruda.OpenWebsite(url),
-			cruda.InitAdapterFixtures(testAdapterID),
-			cruda.NavigateToTestPage(),
-			cruda.WaitForComponent(),
+		Group("open Test page with fixtures",
+			OpenWebsite(url),
+			InitAdapterFixtures(testAdapterID),
+			NavigateToTestPage(),
+			WaitForComponent(),
 		),
-		group.New("now select item 1 in list",
-			cruda.ListSelect(0),
-		),
-
-		group.New("change items text",
-			cruda.FormTextEquals("Entry 1"),
-			cruda.FormEnterText(" - TEST"),
-			cruda.FormSubmit(),
+		Group("now select item 1 in list",
+			ListSelect(0),
 		),
 
-		group.New("expect item to be updates in list",
-			cruda.ListItemText(0, "Entry 1 - TEST"),
+		Group("change items text",
+			FormTextEquals("Entry 1"),
+			FormEnterText(" - TEST"),
+			FormSubmit(),
 		),
 
-		group.New("now switch selection and ensure new text after reloading",
-			cruda.ListSelect(1),
-			cruda.FormTextEquals("Entry 2"),
-			cruda.ListSelect(0),
-			cruda.FormTextEquals("Entry 1 - TEST"),
+		Group("expect item to be updates in list",
+			ListItemText(0, "Entry 1 - TEST"),
+		),
+
+		Group("now switch selection and ensure new text after reloading",
+			ListSelect(1),
+			FormTextEquals("Entry 2"),
+			ListSelect(0),
+			FormTextEquals("Entry 1 - TEST"),
 		),
 	)
 }
 
 func Case04UpdateItemServerError(ctx context.Context, url string) error {
 	return chromedp.Run(ctx,
-		group.New("open Test page with fixtures",
-			cruda.OpenWebsite(url),
-			cruda.InitAdapterFixtures(testAdapterID),
-			cruda.NavigateToTestPage(),
-			cruda.WaitForComponent(),
+		Group("open Test page with fixtures",
+			OpenWebsite(url),
+			InitAdapterFixtures(testAdapterID),
+			NavigateToTestPage(),
+			WaitForComponent(),
 		),
 
-		cruda.InitAdapterUpdateError(testAdapterID, "Server cannot update item"),
+		InitAdapterUpdateError(testAdapterID, "Server cannot update item"),
 
-		group.New("change item 1 text",
-			cruda.ListSelect(0),
-			cruda.FormTextEquals("Entry 1"),
-			cruda.FormEnterText(" - TEST"),
-			cruda.FormSubmit(),
+		Group("change item 1 text",
+			ListSelect(0),
+			FormTextEquals("Entry 1"),
+			FormEnterText(" - TEST"),
+			FormSubmit(),
 		),
 
-		cruda.FormShowsError("Server cannot update item"),
+		FormShowsError("Server cannot update item"),
 	)
 }

@@ -5,6 +5,10 @@ import (
 	"github.com/chromedp/chromedp"
 )
 
+func Group(title string, actions ...chromedp.Action) chromedp.Action {
+	return group.New(title, actions...)
+}
+
 func OpenTestPage(url string) chromedp.Action {
 	return prefixError("OpenTestPage",
 		group.New("open CRUD Test Page on "+url,

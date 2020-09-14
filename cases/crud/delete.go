@@ -3,42 +3,41 @@ package crud
 import (
 	"context"
 
-	"github.com/Oppodelldog/chromedp-test/group"
-	"github.com/Oppodelldog/cruda-test/cruda"
+	. "github.com/Oppodelldog/cruda-test/cruda" //nolint:golint
 	"github.com/chromedp/chromedp"
 )
 
 func Case05DeleteItem(ctx context.Context, url string) error {
 	return chromedp.Run(ctx,
-		group.New("open Test page with fixtures",
-			cruda.OpenWebsite(url),
-			cruda.InitAdapterFixtures(testAdapterID),
-			cruda.NavigateToTestPage(),
-			cruda.WaitForComponent(),
+		Group("open Test page with fixtures",
+			OpenWebsite(url),
+			InitAdapterFixtures(testAdapterID),
+			NavigateToTestPage(),
+			WaitForComponent(),
 
-			group.New("as a precondition expect 2 items in list",
-				cruda.ListItemNum(2), //nolint:gomnd
-				cruda.ListItemText(0, "Entry 1"),
-				cruda.ListItemText(1, "Entry 2"),
+			Group("as a precondition expect 2 items in list",
+				ListItemNum(2), //nolint:gomnd
+				ListItemText(0, "Entry 1"),
+				ListItemText(1, "Entry 2"),
 			),
 		),
 
-		group.New("delete the second item",
-			cruda.ListSelect(1),
-			cruda.DeleteItem(),
-			cruda.FormShowsSuccess(),
-			group.New("expect 1 item in list",
-				cruda.ListItemNum(1),
-				cruda.ListItemText(0, "Entry 1"),
+		Group("delete the second item",
+			ListSelect(1),
+			DeleteItem(),
+			FormShowsSuccess(),
+			Group("expect 1 item in list",
+				ListItemNum(1),
+				ListItemText(0, "Entry 1"),
 			),
 		),
 
-		group.New("delete the remaining (first) item",
-			cruda.ListSelect(0),
-			cruda.DeleteItem(),
-			cruda.FormShowsSuccess(),
-			group.New("expect an empty list",
-				cruda.ListItemNum(0),
+		Group("delete the remaining (first) item",
+			ListSelect(0),
+			DeleteItem(),
+			FormShowsSuccess(),
+			Group("expect an empty list",
+				ListItemNum(0),
 			),
 		),
 	)
@@ -46,20 +45,20 @@ func Case05DeleteItem(ctx context.Context, url string) error {
 
 func Case05DeleteItemServerError(ctx context.Context, url string) error {
 	return chromedp.Run(ctx,
-		group.New("open Test page with fixtures",
-			cruda.OpenWebsite(url),
-			cruda.InitAdapterFixtures(testAdapterID),
-			cruda.NavigateToTestPage(),
-			cruda.WaitForComponent(),
+		Group("open Test page with fixtures",
+			OpenWebsite(url),
+			InitAdapterFixtures(testAdapterID),
+			NavigateToTestPage(),
+			WaitForComponent(),
 		),
 
-		cruda.InitAdapterDeleteError(testAdapterID, "Server cannot delete item"),
+		InitAdapterDeleteError(testAdapterID, "Server cannot delete item"),
 
-		group.New("select item 1 in list",
-			cruda.ListSelect(0),
-			cruda.DeleteItem(),
+		Group("select item 1 in list",
+			ListSelect(0),
+			DeleteItem(),
 		),
 
-		cruda.FormShowsError("Server cannot delete item"),
+		FormShowsError("Server cannot delete item"),
 	)
 }

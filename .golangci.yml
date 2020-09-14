@@ -4,6 +4,7 @@ issues:
   exclude:
     - Using the variable on range scope .* in function literal
     - "err113: do not define .*"
+    - "ST1001"
 
   exclude-rules:
     - path: _test\.go
