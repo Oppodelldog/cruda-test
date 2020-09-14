@@ -44,6 +44,19 @@ func main() {
 		runner.Options{
 			SortSuites: true,
 			SortTests:  true,
+			Screenshot: runner.ScreenshotOptions{
+				OutDir:         "screenshots",
+				OnFailure:      true,
+				BeforeTestCase: true,
+				AfterTestCase:  true,
+				BeforeGroup:    true,
+				AfterGroup:     true,
+				PostProcessing: runner.PostProcessingOptions{
+					CreateGIF:    true,
+					OutDir:       "screenshots",
+					RemoveImages: true,
+				},
+			},
 		},
 	)
 }
