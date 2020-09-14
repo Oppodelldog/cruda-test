@@ -15,5 +15,3 @@ scope is small it was fun to set up these tests to cover the use cases.
 |**cmd**|the main entry point defines and runs the test suites|
 |**cases**|contains the test cases|
 |**cruda**|project specific high level testing API|
-|**group**|some helpers to group chromedp Actions|
-|**runner**|executes the tests, collects stats and prints a summary| 
